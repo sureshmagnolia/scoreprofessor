@@ -449,7 +449,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         metricsArr.push(opt.textContent);
                     });
 
-                    const detailsStr = item.details || 'N/A';
+                    let detailsStr = item.details || 'N/A';
+                    if (catId === 'cat1') {
+                        let linksHtml = [];
+                        if (item.paperUrl) linksHtml.push(`<a href="${item.paperUrl}" target="_blank" style="color: #3b82f6; text-decoration: underline;">Paper/DOI</a>`);
+                        if (item.webOfScienceUrl) linksHtml.push(`<a href="${item.webOfScienceUrl}" target="_blank" style="color: #3b82f6; text-decoration: underline;">WoS/Scopus</a>`);
+                        if (linksHtml.length > 0) {
+                            detailsStr += `<div style="margin-top: 4px; font-size: 0.85em;"><strong>Links:</strong> ${linksHtml.join(' | ')}</div>`;
+                        }
+                    }
                     const metricsStr = metricsArr.join(', ');
                     const detailScore = getScoreDetail(catId, item, state.facultyType);
 
