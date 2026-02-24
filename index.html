@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Placement Score Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Academic/Research Score Calculator</h1>
+            <p>Based on UGC Regulations 2018 (Annexure II, Table 2)</p>
+
+            <div
+                style="margin-top: 1.5rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h4 style="color: #60a5fa; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🔒</span> Serverless & Private
+                </h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 0;">
+                    This is a completely serverless application. <strong>All your entered data is saved securely and
+                        exclusively on your computer's local browser storage.</strong> No data is ever sent to or stored
+                    on any external server. To ensure you don't lose your data if you clear your browser history or
+                    switch computers, we strongly urge you to take regular backups using the <strong>⬇ Export Backup
+                        (JSON)</strong> feature. You can easily restore your data later using the <strong>⬆ Load Backup
+                        (JSON)</strong> button.
+                </p>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section">
+
+                <!-- Global Settings -->
+                <div class="card settings-card">
+                    <h2>Configuration</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="applicant-name">Applicant Name</label>
+                            <input type="text" id="applicant-name" placeholder="Enter full name" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="faculty-type">Select Faculty Type</label>
+                            <select id="faculty-type" class="premium-select">
+                                <option value="science">Sciences/Engineering/Agriculture/Medical/Veterinary</option>
+                                <option value="humanities">Languages/Humanities/Arts/Social
+                                    Sciences/Library/Education/Physical Education/Commerce/Management</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 1 -->
+                <div class="card category-card" id="cat1">
+                    <div class="card-header">
+                        <h2>1. Research Papers in Peer-Reviewed or UGC listed Journals</h2>
+                        <div class="category-score">Score: <span id="cat1-score">0.00</span></div>
+                    </div>
+                    <p class="category-desc">Peer-Reviewed or UGC listed Journals</p>
+                    <div id="cat1-items">
+                        <!-- Items will be added here dynamically -->
+                    </div>
+                    <button class="btn btn-outline add-item-btn" data-category="1">+ Add Paper</button>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="card category-card" id="cat2">
+                    <div class="card-header">
+                        <h2>2. Publications (other than Research papers)</h2>
+                        <div class="category-score">Score: <span id="cat2-score">0.00</span></div>
+                    </div>
+                    <div id="cat2-items"></div>
+                    <button class="btn btn-outline add-item-btn" data-category="2">+ Add Publication</button>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="card category-card" id="cat3">
+                    <div class="card-header">
+                        <h2>3. Creation of ICT mediated Teaching Learning pedagogy and content and development of new
+                            and innovative courses and curricula</h2>
+                        <div class="category-score">Score: <span id="cat3-score">0.00</span></div>
+                    </div>
+                    <div id="cat3-items"></div>
+                    <button class="btn btn-outline add-item-btn" data-category="3">+ Add Item</button>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="card category-card" id="cat4">
+                    <div class="card-header">
+                        <h2>4. Research guidance / Research Projects Completed / Research Projects Ongoing / Consultancy
+                        </h2>
+                        <div class="category-score">Score: <span id="cat4-score">0.00</span></div>
+                    </div>
+                    <div id="cat4-items"></div>
+                    <button class="btn btn-outline add-item-btn" data-category="4">+ Add Item</button>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="card category-card" id="cat5">
+                    <div class="card-header">
+                        <h2>5. Patents / Policy Document / Awards/Fellowship</h2>
+                        <div class="category-score">Score: <span id="cat5-score">0.00</span></div>
+                    </div>
+                    <p class="category-desc capping-warning">Note: Categories 5(b) and 6 combined are capped at 30% of
+                        Total Score.</p>
+                    <div id="cat5-items"></div>
+                    <button class="btn btn-outline add-item-btn" data-category="5">+ Add Item</button>
+                </div>
+
+                <!-- Category 6 -->
+                <div class="card category-card" id="cat6">
+                    <div class="card-header">
+                        <h2>6. *Invited lectures / Resource Person/ paper presentation in Seminars/ Conferences/full
+                            paper in Conference Proceedings</h2>
+                        <div class="category-score">Score: <span id="cat6-score">0.00</span></div>
+                    </div>
+                    <p class="category-desc capping-warning">Note: Categories 5(b) and 6 combined are capped at 30% of
+                        Total Score.</p>
+                    <div id="cat6-items"></div>
+                    <button class="btn btn-outline add-item-btn" data-category="6">+ Add Item</button>
+                </div>
+
+            </div>
+
+            <!-- Sticky Summary Sidebar -->
+            <aside class="summary-section">
+                <div class="sticky-card score-card">
+                    <h2>Total Research Score</h2>
+                    <div class="total-score-display">
+                        <span id="grand-total">0.0</span>
+                    </div>
+
+                    <div class="score-breakdown">
+                        <div class="breakdown-row"><span>Base Score:</span><span id="base-score">0.0</span></div>
+                        <div class="breakdown-row tooltip"
+                            title="Categories 5(b) and 6 are capped at 30% of the total score">
+                            <span>Capped Items (5b+6):</span>
+                            <span id="capped-score">0.0</span>
+                        </div>
+                        <div class="breakdown-row"
+                            style="margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <span>Active Categories:</span><span id="active-categories">0 / 6</span>
+                        </div>
+                    </div>
+
+                    <div class="verdict-banner" id="verdict-banner">
+                        <h4 id="verdict-title">Pending</h4>
+                        <p id="verdict-text">Waiting for data input...</p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="btn-calculate" class="btn btn-primary btn-block">Recalculate</button>
+                        <div class="separator"></div>
+                        <button id="btn-export" class="btn btn-secondary btn-block">⬇ Export Backup (JSON)</button>
+                        <label for="file-import" class="btn btn-secondary btn-block file-upload-label">
+                            ⬆ Load Backup (JSON)
+                            <input type="file" id="file-import" accept=".json" style="display: none;">
+                        </label>
+                        <button id="btn-print" class="btn btn-secondary btn-block" style="margin-top: 10px;">🖨️ Print
+                            Report</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Print Area Header (Hidden on screen) -->
+    <div id="print-area" class="print-only"></div>
+
+    <!-- Templates for dynamic fields (hidden) -->
+    <template id="tpl-cat1">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>Paper</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details / Citation</label>
+                <input type="text" name="details" placeholder="e.g., Title, Journal Name, Vol, Issue, Year..."
+                    autocomplete="off">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Impact Factor Type</label>
+                    <select class="input-impact" name="impact">
+                        <option value="none">Refereed (No Impact Factor)</option>
+                        <option value="less1">Impact Factor < 1</option>
+                        <option value="1to2">Impact Factor between 1 and 2</option>
+                        <option value="2to5">Impact Factor between 2 and 5</option>
+                        <option value="5to10">Impact Factor between 5 and 10</option>
+                        <option value="gt10">Impact Factor > 10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Authorship Type</label>
+                    <select class="input-authorship" name="authorship">
+                        <option value="single">Single Author (100%)</option>
+                        <option value="two">Two Authors (70% each)</option>
+                        <option value="principal">More >2: First/Principal/Corresponding (70%)</option>
+                        <option value="joint">More >2: Joint Author (30%)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-cat2">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>Publication</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details / Citation</label>
+                <input type="text" name="details" placeholder="e.g., Book Title, Publisher, ISBN, Year..."
+                    autocomplete="off">
+            </div>
+            <div class="form-group full-width">
+                <label>Publication Type</label>
+                <select class="input-pub-type" name="pubType">
+                    <optgroup label="(a) Books authored">
+                        <option value="book_intl">International Publisher</option>
+                        <option value="book_natl">National Publisher</option>
+                        <option value="chapter">Chapter in Edited Book</option>
+                        <option value="editor_intl">Editor of Book (International)</option>
+                        <option value="editor_natl">Editor of Book (National)</option>
+                    </optgroup>
+                    <optgroup label="(b) Translation works">
+                        <option value="trans_chapter">Chapter or Research paper</option>
+                        <option value="trans_book">Book</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-cat3">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>ICT / MOOC / E-Content</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details / Topic</label>
+                <input type="text" name="details" placeholder="e.g., Course Name, Module Title, Platform..."
+                    autocomplete="off">
+            </div>
+            <div class="form-group full-width">
+                <label>Activity Type</label>
+                <select class="input-ict-type" name="ictType">
+                    <optgroup label="(a) & (b) Pedagogy & Curricula">
+                        <option value="pedagogy">Development of Innovative pedagogy</option>
+                        <option value="curricula">Design of new curricula and courses</option>
+                    </optgroup>
+                    <optgroup label="(c) MOOCs">
+                        <option value="mooc_complete">Complete MOOCs in 4 quadrants (4 credit)</option>
+                        <option value="mooc_module">MOOCs module/lecture (in 4 quadrants)</option>
+                        <option value="mooc_writer">Content writer/SME for module (>=1 quadrant)</option>
+                        <option value="mooc_coord">Course Coordinator for MOOCs (4 credit)</option>
+                    </optgroup>
+                    <optgroup label="(d) E-Content">
+                        <option value="econtent_course">e-Content 4 quadrants for complete course/e-book</option>
+                        <option value="econtent_module">e-Content 4 quadrants per module</option>
+                        <option value="econtent_contrib">Contribution to e-content module (>=1 quadrant)</option>
+                        <option value="econtent_editor">Editor of e-content for complete course/paper</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-cat4">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>Research/Projects</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details / Title</label>
+                <input type="text" name="details" placeholder="e.g., Project Title, Funding Agency, Scholar Name..."
+                    autocomplete="off">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Activity Type</label>
+                    <select class="input-res-type" name="resType">
+                        <optgroup label="(a) Research guidance">
+                            <option value="phd_awarded">Ph.D. degree awarded</option>
+                            <option value="phd_submitted">Ph.D. thesis submitted</option>
+                            <option value="mphil_awarded">M.Phil./P.G dissertation awarded</option>
+                        </optgroup>
+                        <optgroup label="(b) Completed Projects">
+                            <option value="proj_comp_gt10">More than 10 lakhs</option>
+                            <option value="proj_comp_lt10">Less than 10 lakhs</option>
+                        </optgroup>
+                        <optgroup label="(c) Ongoing Projects">
+                            <option value="proj_ong_gt10">More than 10 lakhs</option>
+                            <option value="proj_ong_lt10">Less than 10 lakhs</option>
+                        </optgroup>
+                        <optgroup label="(d) Consultancy">
+                            <option value="consultancy">Consultancy</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" id="joint-wrapper" style="display:none;">
+                    <label>Role (for Projects/Supervisor)</label>
+                    <select class="input-role" name="role">
+                        <option value="sole">Sole Investigator/Supervisor (100%)</option>
+                        <option value="joint">Joint/Co-investigator/Co-supervisor (50%/70%)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-cat5">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>Patents/Policy/Awards</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details</label>
+                <input type="text" name="details" placeholder="e.g., Patent Number, Award Name, Issuing Body..."
+                    autocomplete="off">
+            </div>
+            <div class="form-group full-width">
+                <label>Activity Type</label>
+                <select class="input-pat-type" name="patType">
+                    <optgroup label="(a) Patents">
+                        <option value="pat_intl">International Patent</option>
+                        <option value="pat_natl">National Patent</option>
+                    </optgroup>
+                    <optgroup label="(b) Policy Document (Subject to Capping)">
+                        <option value="pol_intl">International Body Policy Doc</option>
+                        <option value="pol_natl">National Govt Policy Doc</option>
+                        <option value="pol_state">State Govt Policy Doc</option>
+                    </optgroup>
+                    <optgroup label="(c) Awards/Fellowship">
+                        <option value="award_intl">International Award/Fellowship</option>
+                        <option value="award_natl">National Award/Fellowship</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-cat6">
+        <div class="item-row" data-id="">
+            <div class="row-header">
+                <h3>Invited Lectures/Presentations</h3>
+                <button class="btn-remove" title="Remove Item">×</button>
+            </div>
+            <p class="small-text text-muted" style="margin-top: -5px; margin-bottom: 10px;">(Paper presented that is
+                also published in proceedings counts only once. Subject to 30% capping)</p>
+            <div class="form-group full-width" style="margin-bottom: 1rem;">
+                <label>Details</label>
+                <input type="text" name="details" placeholder="e.g., Lecture Title, Seminar Name, Organizer..."
+                    autocomplete="off">
+            </div>
+            <div class="form-group full-width">
+                <label>Activity Level</label>
+                <select class="input-lec-type" name="lecType">
+                    <option value="lec_intl_abroad">International (Abroad)</option>
+                    <option value="lec_intl_within">International (within country)</option>
+                    <option value="lec_natl">National</option>
+                    <option value="lec_state">State/University</option>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
