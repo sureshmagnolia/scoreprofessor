@@ -87,6 +87,56 @@ header p {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
+/* Category Unique Colors */
+#cat1 {
+    border-left: 4px solid #3b82f6;
+}
+
+#cat1 .card-header h2 {
+    color: #93c5fd;
+}
+
+#cat2 {
+    border-left: 4px solid #10b981;
+}
+
+#cat2 .card-header h2 {
+    color: #6ee7b7;
+}
+
+#cat3 {
+    border-left: 4px solid #f59e0b;
+}
+
+#cat3 .card-header h2 {
+    color: #fcd34d;
+}
+
+#cat4 {
+    border-left: 4px solid #8b5cf6;
+}
+
+#cat4 .card-header h2 {
+    color: #c4b5fd;
+}
+
+#cat5 {
+    border-left: 4px solid #ec4899;
+}
+
+#cat5 .card-header h2 {
+    color: #f9a8d4;
+}
+
+#cat6 {
+    border-left: 4px solid #06b6d4;
+}
+
+#cat6 .card-header h2 {
+    color: #67e8f9;
+}
+
+
 .card-header {
     display: flex;
     justify-content: space-between;
