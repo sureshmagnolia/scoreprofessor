@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cat6: "6. *Invited lectures / Resource Person/ paper presentation in Seminars/ Conferences/full paper in Conference Proceedings"
         };
 
-        let reportHTML = `
+        const getHeaderHTML = () => `
             <div class="print-header">
                 <h2>Academic/Research Score Calculator Report</h2>
                 <p>Based on UGC Regulations 2018 (Annexure II, Table 2)</p>
@@ -423,23 +423,30 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        let reportHTML = '';
+
         for (let i = 1; i <= 6; i++) {
             const catId = `cat${i}`;
             const items = state.items[catId];
 
             if (items && items.length > 0) {
                 reportHTML += `
-                <table class="print-table">
-                    <tr class="print-category-header">
-                        <td colspan="5">${catNames[catId]}</td>
-                    </tr>
-                    <tr>
-                        <th width="5%">#</th>
-                        <th width="45%">Details / Citation</th>
-                        <th width="20%">Type / Metrics</th>
-                        <th width="20%">Breakdown</th>
-                        <th width="10%">Score</th>
-                    </tr>
+                <div class="print-page-section">
+                    ${getHeaderHTML()}
+                    <table class="print-table">
+                        <thead>
+                            <tr class="print-category-header">
+                                <th colspan="5" style="text-align: left; font-size: 14px; font-weight: bold; background-color: #ddd;">${catNames[catId]}</th>
+                            </tr>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="45%">Details / Citation</th>
+                                <th width="20%">Type / Metrics</th>
+                                <th width="20%">Breakdown</th>
+                                <th width="10%">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                 `;
 
                 items.forEach((item, index) => {
@@ -472,22 +479,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 });
 
-                reportHTML += `</table>`;
+                reportHTML += `
+                        </tbody>
+                    </table>
+                </div>`;
             }
         }
 
         reportHTML += `
-            <table class="print-summary-table">
-                <tr><th colspan="2" style="background:#eee; text-align:center;">Score Summary</th></tr>
-                <tr><td>Base Score:</td><td style="font-weight:bold; text-align:right;">${baseScore}</td></tr>
-                <tr><td>Capped Items (5b+6):</td><td style="font-weight:bold; text-align:right;">${cappedScore}</td></tr>
-                <tr><td>Total Research Score:</td><td style="font-weight:bold; text-align:right; font-size:16px;">${grandTotal}</td></tr>
-                <tr><td>Active Categories:</td><td style="text-align:right;">${activeCategories}</td></tr>
-            </table>
+            <div class="print-page-section">
+                ${getHeaderHTML()}
+                <table class="print-summary-table" style="width: 100%; margin-left: 0;">
+                    <tr><th colspan="2" style="background:#eee; text-align:center;">Score Summary</th></tr>
+                    <tr><td>Base Score:</td><td style="font-weight:bold; text-align:right;">${baseScore}</td></tr>
+                    <tr><td>Capped Items (5b+6):</td><td style="font-weight:bold; text-align:right;">${cappedScore}</td></tr>
+                    <tr><td>Total Research Score:</td><td style="font-weight:bold; text-align:right; font-size:16px;">${grandTotal}</td></tr>
+                    <tr><td>Active Categories:</td><td style="text-align:right;">${activeCategories}</td></tr>
+                </table>
 
-            <div class="print-verdict-box">
-                <div style="font-size: 18px; margin-bottom: 5px;">${verdictTitleText}</div>
-                <div style="font-size: 14px; font-weight: normal;">${verdictMsg}</div>
+                <div class="print-verdict-box">
+                    <div style="font-size: 18px; margin-bottom: 5px;">${verdictTitleText}</div>
+                    <div style="font-size: 14px; font-weight: normal;">${verdictMsg}</div>
+                </div>
             </div>
         `;
 

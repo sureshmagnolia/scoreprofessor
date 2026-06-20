@@ -358,6 +358,24 @@ select optgroup {
 .sticky-card {
     position: sticky;
     top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-primary) rgba(0, 0, 0, 0.2);
+}
+
+.sticky-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sticky-card::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.sticky-card::-webkit-scrollbar-thumb {
+    background-color: var(--accent-primary);
+    border-radius: 3px;
 }
 
 .sticky-card h2 {
@@ -469,6 +487,8 @@ select optgroup {
     .sticky-card {
         position: static;
         margin-top: 2rem;
+        max-height: 450px;
+        overflow-y: auto;
     }
 
     .form-grid {
@@ -482,10 +502,21 @@ select optgroup {
 }
 
 @media print {
+    @page {
+        margin: 20mm 15mm 20mm 15mm;
+        @bottom-right {
+            content: "Page " counter(page);
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            color: #666;
+        }
+    }
+
     body {
         background: #fff;
         color: #000;
         font-family: Arial, sans-serif;
+        counter-reset: page;
     }
 
     .app-container {
@@ -494,6 +525,29 @@ select optgroup {
 
     .print-only {
         display: block !important;
+    }
+
+    .print-page-section {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .print-page-section:last-of-type {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tbody {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
     }
 
     .print-header {
@@ -531,7 +585,7 @@ select optgroup {
     }
 
     .print-category-header,
-    .print-category-header td {
+    .print-category-header th {
         background-color: #ddd !important;
         font-weight: bold;
         font-size: 14px;
@@ -540,8 +594,7 @@ select optgroup {
 
     .print-summary-table {
         margin-top: 30px;
-        width: 50%;
-        margin-left: auto;
+        width: 100% !important;
         border-collapse: collapse;
         font-size: 14px;
     }
